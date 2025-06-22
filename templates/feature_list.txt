@@ -1,1 +1,0 @@
-GP_name,quali_pos,constructor,driver,driver_confidence,constructor_reliability,active_driver,active_constructor
