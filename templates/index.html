@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 2025 GP Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(28, 28, 28, 0.9)),
+                  url('/static/wallpaper.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    header {
+      padding: 40px 20px 20px;
+      background: rgba(17, 17, 17, 0.8);
+      width: 100%;
+      box-shadow: 0 2px 10px rgba(255, 0, 0, 0.4);
+      border-bottom: 2px solid #ff0000;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      color: #ff0000;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #ff0000;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #ddd;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .intro-icons {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+
+    .intro-icons a {
+      color: #ff4d4d;
+      margin: 0 12px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-weight: bold;
+    }
+
+    .intro-icons a:hover {
+      color: #ffffff;
+    }
+
+    form {
+      margin-top: 50px;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+    }
+
+    select {
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+      background-color: #2c2c2c;
+      color: #fff;
+      outline: none;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #ff0000;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #cc0000;
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🏁 F1 2025 Grand Prix Predictor</h1>
+    <p>Welcome to the ultimate Formula 1 experience. Select a Grand Prix and predict the top 3 podium finishers based on real qualifying data. Fueled by machine learning and racing spirit!</p>
+    <div class="intro-icons">
+      <a href="https://www.formula1.com/en/drivers.html" target="_blank">🔗 Drivers</a>
+      <a href="https://www.formula1.com/en/teams.html" target="_blank">🔗 Teams</a>
+      <a href="https://www.formula1.com/" target="_blank">🔗 Official F1</a>
+    </div>
+  </header>
+
+  <form action="/predict" method="post">
+    <label for="gp_serial">Select GP Round:</label><br><br>
+    <select name="gp_serial" id="gp_serial">
+      {% for key, value in gp_serial_map.items() %}
+        <option value="{{ key }}">{{ key }} - {{ value[0] }}</option>
+      {% endfor %}
+    </select><br>
+    <button type="submit">Predict</button>
+  </form>
+
+  <footer>
+    Developed with ❤️ for F1 fans — Powered by AI
+  </footer>
+</body>
+</html>

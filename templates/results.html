@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 2025 Results</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(28, 28, 28, 0.9)),
+                  url('/static/wallpaper.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(6px);
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #ff0000;
+      margin-bottom: 40px;
+      font-size: 3rem;
+      text-shadow: 0 0 10px #ff0000;
+    }
+
+    .podium {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: 500px;
+      gap: 40px;
+    }
+
+    .step {
+      width: 180px;
+      border-radius: 10px 10px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    .first  { height: 250px; background: gold; color: black; }
+    .second { height: 210px; background: silver; color: black; }
+    .third  { height: 190px; background: #cd7f32; color: black; }
+
+    .driver-img-wrapper {
+      position: absolute;
+      top: -100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .step img.driver {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid white;
+      background: black;
+    }
+
+    .team-logo {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      margin-top: 6px;
+    }
+
+    .step h2 {
+      margin: 10px 0 4px;
+      font-size: 1.4rem;
+    }
+
+    .step p {
+      margin: 2px 0;
+      font-size: 1.05rem;
+    }
+
+    .probability {
+      margin-top: 6px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #000;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 3px 10px;
+      border-radius: 8px;
+    }
+
+    a {
+      margin-top: 40px;
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      background-color: #ff0000;
+      padding: 12px 24px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    a:hover {
+      background-color: #cc0000;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+
+  <h1>🏁 Podium Prediction: {{ gp }} GP</h1>
+
+  <div class="podium">
+    <!-- 2nd Place -->
+    <div class="step second">
+      <div class="driver-img-wrapper">
+        <img class="driver" src="/static/drivers/{{ table[1].driver.replace(' ', '_') }}.png" alt="{{ table[1].driver }}">
+      </div>
+      <h2>2nd</h2>
+      <p>{{ table[1].driver }}</p>
+      <img class="team-logo" src="/static/team/{{ table[1].constructor.replace(' ', '_') | lower }}.avif" alt="team">
+      <div class="probability">{{ (table[1].top3_probability * 100) | round(2) }}%</div>
+    </div>
+
+    <!-- 1st Place -->
+    <div class="step first">
+      <div class="driver-img-wrapper">
+        <img class="driver" src="/static/drivers/{{ table[0].driver.replace(' ', '_') }}.png" alt="{{ table[0].driver }}">
+      </div>
+      <h2>1st</h2>
+      <p>{{ table[0].driver }}</p>
+      <img class="team-logo" src="/static/team/{{ table[0].constructor.replace(' ', '_') | lower }}.avif" alt="team">
+      <div class="probability">{{ (table[0].top3_probability * 100) | round(2) }}%</div>
+    </div>
+
+    <!-- 3rd Place -->
+    <div class="step third">
+      <div class="driver-img-wrapper">
+        <img class="driver" src="/static/drivers/{{ table[2].driver.replace(' ', '_') }}.png" alt="{{ table[2].driver }}">
+      </div>
+      <h2>3rd</h2>
+      <p>{{ table[2].driver }}</p>
+      <img class="team-logo" src="/static/team/{{ table[2].constructor.replace(' ', '_') | lower }}.avif" alt="team">
+      <div class="probability">{{ (table[2].top3_probability * 100) | round(2) }}%</div>
+    </div>
+  </div>
+
+  <a href="/">⬅ Back to Home</a>
+
+  <!-- Confetti Script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    const duration = 5000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ['#ff0000', '#ffffff', '#ffd700']
+      });
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ['#ff0000', '#ffffff', '#ffd700']
+      });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    })();
+  </script>
+</body>
+</html>
