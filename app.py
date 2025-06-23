@@ -13,16 +13,6 @@ app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-MODEL_PATH = os.path.join(BASE_DIR, "templates", "f1_top3_model.keras")
-PREPROCESSOR_PATH = os.path.join(BASE_DIR, "templates", "preprocessor.joblib")
-
-# Load model and preprocessor
-model = load_model(MODEL_PATH)
-if model is None:
-    raise ValueError("Model not loaded properly.")
-
-preprocessor = joblib.load(PREPROCESSOR_PATH)
-
 # Serial number → (GP Name, CSV File Path)
 '''gp_serial_map = {
     "1": ("Australia", r"C:\CODING\f1_webapp\2025 GP\2025_qualifying_australia.csv"),
@@ -54,6 +44,16 @@ def index():
 
 @app.route("/predict", methods=["POST"])
 def predict():
+    MODEL_PATH = os.path.join(BASE_DIR, "templates", "f1_top3_model.keras")
+    PREPROCESSOR_PATH = os.path.join(BASE_DIR, "templates", "preprocessor.joblib")
+
+# Load model and preprocessor
+    model = load_model(MODEL_PATH)
+    if model is None:
+        raise ValueError("Model not loaded properly.")
+
+    preprocessor = joblib.load(PREPROCESSOR_PATH)
+    
     serial = request.form.get("gp_serial")
     if serial not in gp_serial_map:
         return render_template("results.html", table=[], gp="Unknown")
