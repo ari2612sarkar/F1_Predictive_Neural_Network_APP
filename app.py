@@ -42,7 +42,7 @@ gp_serial_map = {
     "4": ("Bahrain", os.path.join(BASE_DIR, "2025 qualify GP", "2025_qualifying_bahrain.csv")),
     "5": ("Miami", os.path.join(BASE_DIR, "2025 qualify GP", "2025_qualifying_miami.csv")),
     "6": ("Emilia Romagna", os.path.join(BASE_DIR, "2025 qualify GP", "2025_qualifying_emilia_romagna.csv")),
-    "7": ("Monaco", os.path.join(BASE_DIR, "2025 qualify GP", "2025_qualifying_monaco.csv"))
+    "7": ("Monaco", os.path.join(BASE_DIR, "2025 qualify GP", "2025_qualifying_monaco.csv")),
     "8": ("Spain", os.path.join(BASE_DIR, "2025 qualify GP", "2025_qualifying_spain.csv"))
     
 }
