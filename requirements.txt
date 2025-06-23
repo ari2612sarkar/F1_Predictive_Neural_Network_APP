@@ -1,6 +1,7 @@
-Flask
-numpy
-pandas
 scikit-learn
+Flask
+gunicorn
+pandas
+numpy
 joblib
-tensorflow
+tensorflow-cpu==2.13.0
